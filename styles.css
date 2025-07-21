@@ -1,0 +1,14 @@
+body {
+    border: solid 1px green;
+    width: 350px;
+    text-align: center;
+}
+
+ol {
+    margin-left: 20px;
+    padding: 10px 0 10px 30px;
+    border: solid 1px red;
+    border-radius: 10px;
+    width: 280px;
+    background-color: rgb(240, 228, 228);
+}
