@@ -121,6 +121,19 @@ body {
   transform: scale(1.2);
 }
 
+#toDoList button i {
+  font-size: 1.2rem;
+}
+
+#toDoList .fa-check {
+  color: #28a745;
+}
+
+#toDoList .fa-trash {
+  color: #dc3545;
+}
+
+
 /* Animation */
 @keyframes fadeIn {
   from {
