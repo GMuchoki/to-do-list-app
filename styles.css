@@ -1,14 +1,29 @@
 body {
-    border: solid 1px green;
-    width: 350px;
-    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(129, 127, 127);
 }
 
-ol {
-    margin-left: 20px;
-    padding: 10px 0 10px 30px;
-    border: solid 1px red;
-    border-radius: 10px;
-    width: 280px;
-    background-color: rgb(240, 228, 228);
+.container {
+    border: solid blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro-container {
+    border: solid gray;
+    text-align: center;
+    width: 500px;
+    padding: 20px;
+}
+
+.todo-container {
+    border: solid green;
+    width: 500px;
+    padding: 20px;
+}
+
+img {
+    width: 200px;
+    height: 200px;
 }
