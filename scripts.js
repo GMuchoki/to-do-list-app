@@ -16,10 +16,10 @@ window.addEventListener('load', () => {
         }
 
         const doneBtn = document.createElement('button');
-        doneBtn.textContent = "✅";
+        doneBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
 
         const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = "❌";
+        deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
 
         newItem.appendChild(doneBtn);
         newItem.appendChild(deleteBtn);
@@ -64,10 +64,10 @@ addTaskBtn.addEventListener('click', () => {
         newItem.textContent = inputText;
 
         const doneBtn = document.createElement('button');
-        doneBtn.textContent = "✅";
+        doneBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
 
         const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = "❌";
+        deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
 
         newItem.appendChild(doneBtn);
         newItem.appendChild(deleteBtn);
