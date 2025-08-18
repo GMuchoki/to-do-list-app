@@ -1,19 +1,19 @@
 const inputElement = document.getElementById('display');
 const addTaskBtn = document.getElementById('add-button');
 const listElement = document.getElementById('toDoList');
-const completedTasks = document.getElementById('completedTasks');
 
-//Load saved tasks from localStorage on page load
+// Load saved tasks from localStorage on page load
 window.addEventListener('load', () => {
-
     const savedTasks = localStorage.getItem('tasks');
-
-    //Get the existing array from localStorage (or use an empty one if nothing is there yet).
     const taskList = JSON.parse(savedTasks) || [];
 
     taskList.forEach((task) => {
         const newItem = document.createElement('li');
-        newItem.textContent = task;
+        newItem.textContent = task.text;
+
+        if (task.done) {
+            newItem.style.textDecoration = "line-through";
+        }
 
         const doneBtn = document.createElement('button');
         doneBtn.textContent = "✅";
@@ -25,21 +25,38 @@ window.addEventListener('load', () => {
         newItem.appendChild(deleteBtn);
         listElement.appendChild(newItem);
 
+        // ✅ toggle done/undone
         doneBtn.addEventListener('click', () => {
-            newItem.style.textDecoration = "line-through";
+            const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+            tasks.forEach((t) => {
+                if (t.text === newItem.firstChild.textContent) {
+                    if (t.done) {
+                        newItem.style.textDecoration = "none";
+                        t.done = false;
+                    } else {
+                        newItem.style.textDecoration = "line-through";
+                        t.done = true;
+                    }
+                }
+            });
+
+            localStorage.setItem("tasks", JSON.stringify(tasks));
         });
 
+        // ❌ delete task
         deleteBtn.addEventListener('click', () => {
             listElement.removeChild(newItem);
 
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks = tasks.filter(t => t.text !== newItem.firstChild.textContent);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
         });
     });
-
 });
 
-
+// Add new task
 addTaskBtn.addEventListener('click', () => {
-
     const inputText = inputElement.value;
 
     if (inputText !== "") {
@@ -56,33 +73,49 @@ addTaskBtn.addEventListener('click', () => {
         newItem.appendChild(deleteBtn);
         listElement.appendChild(newItem);
 
-        //Get the existing array from localStorage (or use an empty one if nothing is there yet).
         const existingTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-        // 👈 Add to the array
-        existingTasks.push(inputText);
-
-        //Save the updated task list to localStorage
-        localStorage.setItem('tasks', JSON.stringify(existingTasks));   // 👈 Save the updated array
+        existingTasks.push({
+            text: inputText,
+            done: false
+        });
+        localStorage.setItem('tasks', JSON.stringify(existingTasks));
 
         inputElement.value = "";
 
+        // ✅ toggle done/undone
         doneBtn.addEventListener('click', () => {
-            newItem.style.textDecoration = "line-through";
+            const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+            tasks.forEach((t) => {
+                if (t.text === newItem.firstChild.textContent) {
+                    if (t.done) {
+                        newItem.style.textDecoration = "none";
+                        t.done = false;
+                    } else {
+                        newItem.style.textDecoration = "line-through";
+                        t.done = true;
+                    }
+                }
+            });
+
+            localStorage.setItem("tasks", JSON.stringify(tasks));
         });
 
+        // ❌ delete task
         deleteBtn.addEventListener('click', () => {
             listElement.removeChild(newItem);
-        });
 
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks = tasks.filter(t => t.text !== newItem.firstChild.textContent);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        });
     } else {
         alert("Please type something before adding!");
     }
 });
 
-
+// Add task with Enter key
 inputElement.addEventListener("keydown", (e) => {
-
     if (e.key === "Enter") {
         addTaskBtn.click();
     }
